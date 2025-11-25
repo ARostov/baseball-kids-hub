@@ -62,7 +62,8 @@ export const appSections: AppSection[] = [
         title: 'Друзья',
         description: 'Сообщество бейсболистов',
         icon: '👥',
-        path: '/friends'
+        path: '/friends',
+        comingSoon: true
     },
     {
         id: 'shop',
