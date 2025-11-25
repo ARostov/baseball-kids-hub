@@ -5,47 +5,108 @@ interface HomePageProps {
     onNavigate: (path: string) => void;
 }
 
+// type SectionId = 'profile' | 'trainings' | 'schedule' | 'levels' | 'achievements' |
+//     'legends' | 'grades' | 'quiz' | 'rules' | 'tips' | 'friends' | 'shop';
+
 export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50 p-6">
-            <header className="text-center mb-8">
-                <h1 className="text-4xl font-bold text-gray-800 mb-2">
-                    ⚾ Baseball Kids Hub
-                </h1>
-                <p className="text-lg text-gray-600">
-                    Твой путь к бейсбольному величию!
-                </p>
-            </header>
+        <div className="min-h-screen bg-white">
+            {/* Герой-секция */}
+            <section className="bg-gradient-to-r from-mlb-blue to-mlb-light-blue text-white py-16">
+                <div className="container mx-auto px-4 text-center">
+                    <div className="text-6xl mb-6">⚾</div>
+                    <h1 className="text-5xl font-bold mb-4">Baseball Kids Hub</h1>
+                    <p className="text-xl mb-8 max-w-2xl mx-auto">
+                        Официальная платформа для развития юных бейсболистов
+                    </p>
+                    <div className="flex justify-center space-x-4">
+                        <button
+                            onClick={() => onNavigate('/trainings')}
+                            className="mlb-button-primary text-lg"
+                        >
+                            Начать тренировки
+                        </button>
+                        <button
+                            onClick={() => onNavigate('/legends')}
+                            className="mlb-button-secondary text-lg border-white text-white hover:bg-white hover:text-mlb-blue"
+                        >
+                            Изучить легенд
+                        </button>
+                    </div>
+                </div>
+            </section>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
-                {appSections.map((section: AppSection) => (
-                    <div
-                        key={section.id}
-                        onClick={() => !section.comingSoon && onNavigate(section.path)}
-                        className={`
-              bg-white rounded-2xl shadow-lg border-2 border-gray-200 p-6 
-              cursor-pointer transition-all duration-300 hover:scale-105 
-              hover:shadow-xl hover:border-blue-300
-              ${section.comingSoon ? 'opacity-60 cursor-not-allowed' : ''}
-            `}
-                    >
-                        <div className="text-center">
-                            <div className="text-4xl mb-3">{section.icon}</div>
-                            <h3 className="text-xl font-bold text-gray-800 mb-2">
-                                {section.title}
-                            </h3>
-                            <p className="text-gray-600 text-sm mb-3">
-                                {section.description}
-                            </p>
-                            {section.comingSoon && (
-                                <span className="inline-block bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">
-                  Скоро
-                </span>
-                            )}
+            {/* Основные разделы */}
+            <section className="py-12">
+                <div className="container mx-auto px-4">
+                    <h2 className="mlb-section-title text-center">Все разделы платформы</h2>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        {appSections.map((section: AppSection) => (
+                            <div
+                                key={section.id}
+                                onClick={() => !section.comingSoon && onNavigate(section.path)}
+                                className={`
+                                    mlb-card p-6 cursor-pointer transition-all duration-300
+                                    ${section.comingSoon
+                                    ? 'opacity-60 cursor-not-allowed'
+                                    : 'hover:shadow-xl'
+                                }
+                                `}
+                            >
+                                {section.comingSoon && (
+                                    <div className="absolute -top-2 -right-2 bg-mlb-gray text-white text-xs font-bold px-2 py-1 rounded">
+                                        СКОРО
+                                    </div>
+                                )}
+
+                                <div className="text-center">
+                                    <div className="text-4xl mb-4 text-mlb-blue">
+                                        {section.icon}
+                                    </div>
+                                    <h3 className="text-lg font-semibold text-mlb-blue mb-2">
+                                        {section.title}
+                                    </h3>
+                                    <p className="text-mlb-gray text-sm mb-4">
+                                        {section.description}
+                                    </p>
+
+                                    {!section.comingSoon && (
+                                        <button className="text-mlb-red font-medium text-sm hover:underline">
+                                            Перейти →
+                                        </button>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Статистика */}
+            <section className="bg-mlb-light-gray py-12">
+                <div className="container mx-auto px-4">
+                    <h2 className="mlb-section-title text-center">Наша платформа в цифрах</h2>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                        <div>
+                            <div className="text-3xl font-bold text-mlb-blue mb-2">500+</div>
+                            <div className="text-mlb-gray">Юных бейсболистов</div>
+                        </div>
+                        <div>
+                            <div className="text-3xl font-bold text-mlb-blue mb-2">50+</div>
+                            <div className="text-mlb-gray">Легенд MLB</div>
+                        </div>
+                        <div>
+                            <div className="text-3xl font-bold text-mlb-blue mb-2">25+</div>
+                            <div className="text-mlb-gray">Тренировочных программ</div>
+                        </div>
+                        <div>
+                            <div className="text-3xl font-bold text-mlb-blue mb-2">10</div>
+                            <div className="text-mlb-gray">Уровней мастерства</div>
                         </div>
                     </div>
-                ))}
-            </div>
+                </div>
+            </section>
         </div>
     );
 };
