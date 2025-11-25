@@ -3,9 +3,15 @@
 <head>
     <meta charset="utf-8">
     <title>Baseball Kids Hub</title>
-    <script type="text/javascript">
-        sessionStorage.redirect = location.pathname;
-        window.location.replace('/baseball-kids-hub/');
+    <script>
+        // Single Page App for GitHub Pages
+        const segmentCount = 0;
+        const l = window.location;
+        const base = l.pathname.split('/').slice(0, 1 + segmentCount).join('/');
+        const redirect = base + '/index.html';
+        const url = l.origin + base + '/index.html' + l.search + l.hash;
+        sessionStorage.redirect = l.pathname;
+        window.location.replace(url);
     </script>
 </head>
 <body>
