@@ -54,3 +54,9 @@ export interface Exercise {
     reps?: number;
     completed: boolean;
 }
+
+export * from './legend';
+export * from './level';
+export * from './schedule';
+export * from './quiz';
+export * from './grades';

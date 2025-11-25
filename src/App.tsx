@@ -3,6 +3,13 @@ import { HomePage } from './components/HomePage';
 import { ProfilePage } from './pages/Profile';
 import { TrainingsPage } from './pages/Trainings';
 import { TrainingDetail } from './pages/TrainingDetail';
+import { LegendsPage } from './pages/Legends';
+import { LegendDetail } from './pages/LegendDetail';
+import { LevelsPage } from './pages/Levels';
+import { LevelRequirementsPage } from './pages/LevelRequirements';
+import { SchedulePage } from './pages/Schedule';
+import { QuizPage } from './pages/Quiz';
+import { GradesPage } from './pages/Grades';
 
 function AppContent() {
     const navigate = useNavigate();
@@ -13,17 +20,19 @@ function AppContent() {
                 <Route path="/" element={<HomePage onNavigate={navigate} />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/trainings" element={<TrainingsPage />} />
-                <Route path="/schedule" element={<div className="p-8">Расписание - в разработке</div>} />
-                <Route path="/levels" element={<div className="p-8">Уровни - в разработке</div>} />
+                <Route path="/training/:id" element={<TrainingDetail />} />
+                <Route path="/legends" element={<LegendsPage />} />
+                <Route path="/legend/:id" element={<LegendDetail />} />
+                <Route path="/levels" element={<LevelsPage />} />
+                <Route path="/level/:id/requirements" element={<LevelRequirementsPage />} />
+                <Route path="/schedule" element={<SchedulePage />} />
+                <Route path="/quiz" element={<QuizPage />} />
+                <Route path="/grades" element={<GradesPage />} />
                 <Route path="/achievements" element={<div className="p-8">Ачивки - в разработке</div>} />
-                <Route path="/legends" element={<div className="p-8">Легенды - в разработке</div>} />
-                <Route path="/grades" element={<div className="p-8">Учёба - в разработке</div>} />
-                <Route path="/quiz" element={<div className="p-8">Викторина - в разработке</div>} />
                 <Route path="/friends" element={<div className="p-8">Друзья - в разработке</div>} />
                 <Route path="/shop" element={<div className="p-8">Магазин - в разработке</div>} />
                 <Route path="/rules" element={<div className="p-8">Правила - в разработке</div>} />
                 <Route path="/tips" element={<div className="p-8">Советы - в разработке</div>} />
-                <Route path="/training/:id" element={<TrainingDetail />} />
             </Routes>
         </div>
     );

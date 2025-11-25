@@ -15,7 +15,77 @@ export const appSections: AppSection[] = [
         icon: '🏃',
         path: '/trainings'
     },
-    // ... остальные разделы
+    {
+        id: 'schedule',
+        title: 'Расписание',
+        description: 'График занятий и игр',
+        icon: '📅',
+        path: '/schedule'
+    },
+    {
+        id: 'levels',
+        title: 'Уровни',
+        description: 'Нормативы и аттестация',
+        icon: '🎯',
+        path: '/levels'
+    },
+    {
+        id: 'achievements',
+        title: 'Ачивки',
+        description: 'Мои достижения',
+        icon: '🏆',
+        path: '/achievements'
+    },
+    {
+        id: 'legends',
+        title: 'Легенды',
+        description: 'Коллекция карточек',
+        icon: '🌟',
+        path: '/legends'
+    },
+    {
+        id: 'grades',
+        title: 'Учёба',
+        description: 'Успеваемость в школе',
+        icon: '📚',
+        path: '/grades'
+    },
+    {
+        id: 'quiz',
+        title: 'Викторина',
+        description: 'Проверь знания бейсбола',
+        icon: '❓',
+        path: '/quiz'
+    },
+    {
+        id: 'friends',
+        title: 'Друзья',
+        description: 'Сообщество бейсболистов',
+        icon: '👥',
+        path: '/friends'
+    },
+    {
+        id: 'shop',
+        title: 'Магазин',
+        description: 'Трать BaseCoin',
+        icon: '🛍️',
+        path: '/shop',
+        comingSoon: true
+    },
+    {
+        id: 'rules',
+        title: 'Правила',
+        description: 'Основы бейсбола',
+        icon: '📖',
+        path: '/rules'
+    },
+    {
+        id: 'tips',
+        title: 'Советы',
+        description: 'Полезные подсказки',
+        icon: '💡',
+        path: '/tips'
+    }
 ];
 
 export const mockProfile: ProfileData = {
@@ -136,7 +206,72 @@ export const mockTrainings: Training[] = [
         completed: true,
         date: '2024-01-18',
         sections: {
-            // ... аналогичная структура для питчинга ...
+            warmup: {
+                title: 'Разминка для питчера',
+                duration: '10 минут',
+                exercises: [
+                    {
+                        id: 9,
+                        name: 'Вращения плечами',
+                        description: 'Подготовка плечевых суставов',
+                        duration: '5 минут',
+                        completed: true
+                    },
+                    {
+                        id: 10,
+                        name: 'Легкий бег',
+                        description: 'Разогрев всего тела',
+                        duration: '5 минут',
+                        completed: true
+                    }
+                ]
+            },
+            main: {
+                title: 'Основные упражнения',
+                duration: '45 минут',
+                exercises: [
+                    {
+                        id: 11,
+                        name: 'Отработка стойки питчера',
+                        description: 'Правильная позиция на насыпи',
+                        duration: '15 минут',
+                        sets: 3,
+                        reps: 8,
+                        completed: true
+                    },
+                    {
+                        id: 12,
+                        name: 'Броски с разной дистанции',
+                        description: 'Точность бросков на разные расстояния',
+                        duration: '20 минут',
+                        sets: 4,
+                        reps: 10,
+                        completed: true
+                    },
+                    {
+                        id: 13,
+                        name: 'Разные типы подач',
+                        description: 'Фастбол, чейндж-ап, слайдер',
+                        duration: '10 минут',
+                        sets: 2,
+                        reps: 5,
+                        completed: true
+                    }
+                ]
+            },
+            cooldown: {
+                title: 'Заминка',
+                duration: '5 минут',
+                exercises: [
+                    {
+                        id: 14,
+                        name: 'Растяжка рук',
+                        description: 'Растяжка мышц бросающей руки',
+                        duration: '5 минут',
+                        completed: true
+                    }
+                ]
+            }
         }
     }
 ];
