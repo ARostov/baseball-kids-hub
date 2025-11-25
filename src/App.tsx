@@ -10,12 +10,15 @@ import { LevelRequirementsPage } from './pages/LevelRequirements';
 import { SchedulePage } from './pages/Schedule';
 import { QuizPage } from './pages/Quiz';
 import { GradesPage } from './pages/Grades';
+import { RulesPage } from './pages/Rules';
+import { Header } from './components/Header';
 
 function AppContent() {
     const navigate = useNavigate();
 
     return (
         <div className="min-h-screen bg-gray-50">
+            <Header />
             <Routes>
                 <Route path="/" element={<HomePage onNavigate={navigate} />} />
                 <Route path="/profile" element={<ProfilePage />} />
@@ -28,10 +31,10 @@ function AppContent() {
                 <Route path="/schedule" element={<SchedulePage />} />
                 <Route path="/quiz" element={<QuizPage />} />
                 <Route path="/grades" element={<GradesPage />} />
+                <Route path="/rules" element={<RulesPage />} />
                 <Route path="/achievements" element={<div className="p-8">Ачивки - в разработке</div>} />
                 <Route path="/friends" element={<div className="p-8">Друзья - в разработке</div>} />
                 <Route path="/shop" element={<div className="p-8">Магазин - в разработке</div>} />
-                <Route path="/rules" element={<div className="p-8">Правила - в разработке</div>} />
                 <Route path="/tips" element={<div className="p-8">Советы - в разработке</div>} />
             </Routes>
         </div>

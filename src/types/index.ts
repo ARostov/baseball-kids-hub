@@ -55,8 +55,10 @@ export interface Exercise {
     completed: boolean;
 }
 
-export * from './legend';
-export * from './level';
-export * from './schedule';
-export * from './quiz';
-export * from './grades';
+// Явно экспортируем типы чтобы избежать конфликтов имен
+export type { Legend, Team, CareerStats } from './legend';
+export type { LevelSystem, Level, LevelRequirements } from './level';
+export type { Schedule, ScheduleEvent } from './schedule';
+export type { Quiz, Question, Category as QuizCategory } from './quiz';
+export type { Grades, Student, Subject } from './grades';
+export type { Rules, Category as RulesCategory, Rule, Term } from './rules';
