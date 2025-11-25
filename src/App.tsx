@@ -11,6 +11,7 @@ import { SchedulePage } from './pages/Schedule';
 import { QuizPage } from './pages/Quiz';
 import { GradesPage } from './pages/Grades';
 import { RulesPage } from './pages/Rules';
+import { TipsPage } from './pages/Tips';
 import { Header } from './components/Header';
 
 function AppContent() {
@@ -32,10 +33,10 @@ function AppContent() {
                 <Route path="/quiz" element={<QuizPage />} />
                 <Route path="/grades" element={<GradesPage />} />
                 <Route path="/rules" element={<RulesPage />} />
+                <Route path="/tips" element={<TipsPage />} />
                 <Route path="/achievements" element={<div className="p-8">Ачивки - в разработке</div>} />
                 <Route path="/friends" element={<div className="p-8">Друзья - в разработке</div>} />
                 <Route path="/shop" element={<div className="p-8">Магазин - в разработке</div>} />
-                <Route path="/tips" element={<div className="p-8">Советы - в разработке</div>} />
             </Routes>
         </div>
     );

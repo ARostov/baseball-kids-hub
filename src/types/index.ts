@@ -62,3 +62,4 @@ export type { Schedule, ScheduleEvent } from './schedule';
 export type { Quiz, Question, Category as QuizCategory } from './quiz';
 export type { Grades, Student, Subject } from './grades';
 export type { Rules, Category as RulesCategory, Rule, Term } from './rules';
+export type { Tips, TipCategory, Tip } from './tips';
