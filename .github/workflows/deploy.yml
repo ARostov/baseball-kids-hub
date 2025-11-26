@@ -69,5 +69,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `🎉 Preview deployed! \n\n**View your PR preview here:** ${process.env.PREVIEW_URL || '${{ steps.deployment.outputs.page_url }}'}`
+              body: `🎉 Preview deployed! \n\n**View your PR preview here:** ${{ steps.deployment.outputs.page_url }}`
             })
