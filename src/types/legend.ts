@@ -1,3 +1,9 @@
+export interface Team {
+    name: string;
+    years: string;
+    number: number;
+}
+
 export interface Legend {
     id: number;
     name: string;
@@ -8,18 +14,20 @@ export interface Legend {
     position: string;
     teams: Team[];
     trophies: string[];
-    careerStats: CareerStats;
+    careerStats: {
+        battingAverage: string;
+        homeRuns: string;
+        RBIs: string;
+        stolenBases?: string;
+        wins?: string;
+        strikeouts?: string;
+        ERA?: string;
+    };
     funFact: string;
     owned: boolean;
-    obtainedFrom: 'achievement' | 'shop' | 'level';
-    rarity: 'common' | 'rare' | 'epic' | 'legendary' | 'mythic';
-    price?: number;
-}
-
-export interface Team {
-    name: string;
-    years: string;
-    number: number;
+    obtainedFrom: 'achievement' | 'level' | 'shop' | 'special';
+    rarity: 'common' | 'rare' | 'epic' | 'legendary';
+    price: number;
 }
 
 export interface CareerStats {

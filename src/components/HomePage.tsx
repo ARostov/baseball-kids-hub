@@ -28,9 +28,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                         </button>
                         <button
                             onClick={() => onNavigate('/legends')}
-                            className="mlb-button-secondary text-lg border-white text-white hover:bg-white hover:text-mlb-blue"
+                            className="mlb-button-secondary text-lg border-white text-mlb-blue hover:bg-white hover:text-mlb-blue"
                         >
-                            Изучить легенд
+                            Изучить легенды
                         </button>
                     </div>
                 </div>
