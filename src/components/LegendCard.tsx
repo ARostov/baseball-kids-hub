@@ -1,5 +1,4 @@
-import React from 'react';
-import { Legend } from '../types/legend';
+import { Legend } from '../types';
 
 interface LegendCardProps {
     legend: Legend;
@@ -37,7 +36,7 @@ export const LegendCard: React.FC<LegendCardProps> = ({ legend, onCardClick }) =
             }`}
         >
             <div className="text-center">
-                <div className="text-6xl mb-4">{legend.image}</div>
+                <div className="text-6xl mb-4">⚾</div>
 
                 <h3 className="text-xl font-bold text-gray-800 mb-2">{legend.name}</h3>
                 <p className="text-sm text-gray-600 mb-3">{legend.position}</p>

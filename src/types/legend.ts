@@ -15,9 +15,9 @@ export interface Legend {
     teams: Team[];
     trophies: string[];
     careerStats: {
-        battingAverage: string;
-        homeRuns: string;
-        RBIs: string;
+        battingAverage?: string;
+        homeRuns?: string;
+        RBIs?: string;
         stolenBases?: string;
         wins?: string;
         strikeouts?: string;
