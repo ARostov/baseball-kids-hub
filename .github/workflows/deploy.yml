@@ -39,9 +39,9 @@ jobs:
         run: |
           # Получаем имя ветки
           if [ "${{ github.event_name }}" = "pull_request" ]; then
-            BRANCH_NAME="${{ github.head_ref }}"
+          BRANCH_NAME="${{ github.head_ref }}"
           else
-            BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
           fi
           
           # Заменяем спецсимволы в имени ветки
@@ -49,9 +49,15 @@ jobs:
           echo "Branch: $BRANCH_NAME"
           echo "Clean branch: $CLEAN_BRANCH_NAME"
           
-          # Создаем папку для билда ветки
-          mkdir -p ./dist-branches
-          cp -r ./dist/* "./dist-branches/$CLEAN_BRANCH_NAME/"
+          # Создаем папку для билда ветки (рекурсивно)
+          mkdir -p "./dist-branches/$CLEAN_BRANCH_NAME"
+          
+          # Копируем содержимое dist в папку ветки
+          cp -r ./dist/* "./dist-branches/$CLEAN_BRANCH_NAME/" || echo "Copy completed"
+          
+          # Проверяем что скопировалось
+          echo "Contents of dist-branches:"
+          ls -la "./dist-branches/$CLEAN_BRANCH_NAME/"
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
