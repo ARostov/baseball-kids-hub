@@ -19,7 +19,7 @@ function Footer() {
                         </a>
                     </div>
                     <p className="text-gray-400 mt-6 text-sm">
-                        © 2024 Baseball Kids Hub. Все права защищены.
+                        © 2025 Baseball Kids Hub. Все права защищены.
                     </p>
                 </div>
             </div>

@@ -17,7 +17,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                     <div className="text-6xl mb-6">⚾</div>
                     <h1 className="text-5xl font-bold mb-4">Baseball Kids Hub</h1>
                     <p className="text-xl mb-8 max-w-2xl mx-auto">
-                        Официальная платформа для развития юных бейсболистов
+                        Платформа для развития юных бейсболистов
                     </p>
                     <div className="flex justify-center space-x-4">
                         <button
@@ -89,11 +89,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                     <h2 className="mlb-section-title text-center">Наша платформа в цифрах</h2>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                         <div>
-                            <div className="text-3xl font-bold text-mlb-blue mb-2">500+</div>
+                            <div className="text-3xl font-bold text-mlb-blue mb-2">1+</div>
                             <div className="text-mlb-gray">Юных бейсболистов</div>
                         </div>
                         <div>
-                            <div className="text-3xl font-bold text-mlb-blue mb-2">50+</div>
+                            <div className="text-3xl font-bold text-mlb-blue mb-2">30+</div>
                             <div className="text-mlb-gray">Легенд MLB</div>
                         </div>
                         <div>
