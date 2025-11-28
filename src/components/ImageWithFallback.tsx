@@ -15,11 +15,8 @@ export const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
                                                                     }) => {
     const [error, setError] = useState(false);
 
-    const isValidImage = src && (src.startsWith('http') || src.startsWith('/') || src.startsWith('./'));
-    const showFallback = !isValidImage || error;
-
-    if (showFallback) {
-        return <>{fallback}</>;
+    if (!src || error) {
+        return <div className={className}>{fallback}</div>;
     }
 
     return (
