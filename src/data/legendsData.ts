@@ -5,7 +5,7 @@ export const legendsData: Legend[] = [
         "id": 1,
         "name": "Бейб Рут",
         "fullName": "Джордж Херман «Бейб» Рут",
-        "image": "/images/legends/BabeRuth.png",
+        "image": "./images/legends/BabeRuth.png",
         "description": "Величайший игрок в истории бейсбола, изменивший игру своей силой хоум-ранов. Икона Нью-Йорк Янкиз и всего спорта.",
         "era": "1914-1935",
         "position": "Аутфилдер/Питчер",
