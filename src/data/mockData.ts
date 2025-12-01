@@ -1,4 +1,5 @@
-import { AppSection, ProfileData, Training } from '../types';
+// src/data/mockData.ts (обновленная секция appSections)
+import { AppSection, ProfileData, Training, Exercise, SimpleExercise } from '../types';
 
 export const appSections: AppSection[] = [
     {
@@ -9,11 +10,11 @@ export const appSections: AppSection[] = [
         path: '/profile'
     },
     {
-        id: 'trainings',
+        id: 'exercises',
         title: 'Тренировки',
-        description: 'План и расписание',
+        description: 'Упражнения и программы',
         icon: '🏃',
-        path: '/trainings'
+        path: '/exercises'
     },
     {
         id: 'schedule',
@@ -106,6 +107,59 @@ export const mockProfile: ProfileData = {
     }
 };
 
+// ... существующий код appSections и mockProfile ...
+
+// Моковые данные для НОВОЙ системы (Exercise) - БЕЗ duration и completed
+export const mockExercises: Exercise[] = [
+    {
+        id: 1,
+        name: 'Бег на месте',
+        description: 'Легкий бег для разогрева мышц',
+        image: '/images/running.jpg',
+        difficulty: 'beginner',
+        video_links: [],
+        age_group_ids: [1, 2],
+        category_ids: [5],
+        muscle_group_ids: [3, 6],
+        contraindication_ids: [],
+        equipment_ids: [],
+        space_requirements: 'small_indoors',
+        fatigue_level: 'low',
+        partner_required: false,
+        estimated_duration_minutes: 5
+    },
+    {
+        id: 2,
+        name: 'Вращения корпусом',
+        description: 'Медленные вращения для гибкости',
+        image: '/images/stretching.jpg',
+        difficulty: 'beginner',
+        video_links: [],
+        age_group_ids: [1, 2, 3],
+        category_ids: [6],
+        muscle_group_ids: [4, 6],
+        contraindication_ids: [4],
+        equipment_ids: [],
+        space_requirements: 'small_indoors',
+        fatigue_level: 'low',
+        partner_required: false,
+        estimated_duration_minutes: 5
+    }
+    // ... можно добавить больше упражнений ...
+];
+
+// Хелпер для создания SimpleExercise (для старой системы)
+const createSimpleExercise = (id: number, name: string, description: string, duration: string, completed: boolean = false, sets?: number, reps?: number): SimpleExercise => ({
+    id,
+    name,
+    description,
+    duration,
+    completed,
+    sets,
+    reps
+});
+
+// Моковые данные для СТАРОЙ системы (Training с SimpleExercise)
 export const mockTrainings: Training[] = [
     {
         id: 1,
@@ -120,159 +174,29 @@ export const mockTrainings: Training[] = [
                 title: 'Разминка',
                 duration: '15 минут',
                 exercises: [
-                    {
-                        id: 1,
-                        name: 'Бег на месте',
-                        description: 'Легкий бег для разогрева мышц',
-                        duration: '5 минут',
-                        completed: false
-                    },
-                    {
-                        id: 2,
-                        name: 'Вращения корпусом',
-                        description: 'Медленные вращения для гибкости',
-                        duration: '5 минут',
-                        completed: false
-                    },
-                    {
-                        id: 3,
-                        name: 'Растяжка рук и плеч',
-                        description: 'Подготовка к замахам битой',
-                        duration: '5 минут',
-                        completed: false
-                    }
+                    createSimpleExercise(1, 'Бег на месте', 'Легкий бег для разогрева мышц', '5 минут', false),
+                    createSimpleExercise(2, 'Вращения корпусом', 'Медленные вращения для гибкости', '5 минут', false),
+                    createSimpleExercise(3, 'Растяжка рук и плеч', 'Подготовка к замахам битой', '5 минут', false)
                 ]
             },
             main: {
                 title: 'Основные упражнения',
                 duration: '60 минут',
                 exercises: [
-                    {
-                        id: 4,
-                        name: 'Отработка стойки',
-                        description: 'Правильная позиция при бэттинге',
-                        duration: '15 минут',
-                        sets: 3,
-                        reps: 10,
-                        completed: false
-                    },
-                    {
-                        id: 5,
-                        name: 'Замах битой',
-                        description: 'Отработка техники замаха',
-                        duration: '20 минут',
-                        sets: 4,
-                        reps: 15,
-                        completed: false
-                    },
-                    {
-                        id: 6,
-                        name: 'Удар по мячу на стойке',
-                        description: 'Удары по неподвижному мячу',
-                        duration: '25 минут',
-                        sets: 5,
-                        reps: 12,
-                        completed: false
-                    }
+                    createSimpleExercise(4, 'Отработка стойки', 'Правильная позиция при бэттинге', '15 минут', false, 3, 10),
+                    createSimpleExercise(5, 'Замах битой', 'Отработка техники замаха', '20 минут', false, 4, 15),
+                    createSimpleExercise(6, 'Удар по мячу на стойке', 'Удары по неподвижному мячу', '25 минут', false, 5, 12)
                 ]
             },
             cooldown: {
                 title: 'Заминка',
                 duration: '15 минут',
                 exercises: [
-                    {
-                        id: 7,
-                        name: 'Медленная ходьба',
-                        description: 'Восстановление дыхания',
-                        duration: '5 минут',
-                        completed: false
-                    },
-                    {
-                        id: 8,
-                        name: 'Растяжка мышц',
-                        description: 'Растяжка рук, ног и корпуса',
-                        duration: '10 минут',
-                        completed: false
-                    }
-                ]
-            }
-        }
-    },
-    {
-        id: 2,
-        name: 'Питчинг тренировка',
-        type: 'Питчинг',
-        duration: '60 минут',
-        difficulty: 'beginner',
-        completed: true,
-        date: '2024-01-18',
-        sections: {
-            warmup: {
-                title: 'Разминка для питчера',
-                duration: '10 минут',
-                exercises: [
-                    {
-                        id: 9,
-                        name: 'Вращения плечами',
-                        description: 'Подготовка плечевых суставов',
-                        duration: '5 минут',
-                        completed: true
-                    },
-                    {
-                        id: 10,
-                        name: 'Легкий бег',
-                        description: 'Разогрев всего тела',
-                        duration: '5 минут',
-                        completed: true
-                    }
-                ]
-            },
-            main: {
-                title: 'Основные упражнения',
-                duration: '45 минут',
-                exercises: [
-                    {
-                        id: 11,
-                        name: 'Отработка стойки питчера',
-                        description: 'Правильная позиция на насыпи',
-                        duration: '15 минут',
-                        sets: 3,
-                        reps: 8,
-                        completed: true
-                    },
-                    {
-                        id: 12,
-                        name: 'Броски с разной дистанции',
-                        description: 'Точность бросков на разные расстояния',
-                        duration: '20 минут',
-                        sets: 4,
-                        reps: 10,
-                        completed: true
-                    },
-                    {
-                        id: 13,
-                        name: 'Разные типы подач',
-                        description: 'Фастбол, чейндж-ап, слайдер',
-                        duration: '10 минут',
-                        sets: 2,
-                        reps: 5,
-                        completed: true
-                    }
-                ]
-            },
-            cooldown: {
-                title: 'Заминка',
-                duration: '5 минут',
-                exercises: [
-                    {
-                        id: 14,
-                        name: 'Растяжка рук',
-                        description: 'Растяжка мышц бросающей руки',
-                        duration: '5 минут',
-                        completed: true
-                    }
+                    createSimpleExercise(7, 'Медленная ходьба', 'Восстановление дыхания', '5 минут', false),
+                    createSimpleExercise(8, 'Растяжка мышц', 'Растяжка рук, ног и корпуса', '10 минут', false)
                 ]
             }
         }
     }
+    // ... остальные тренировки ...
 ];
