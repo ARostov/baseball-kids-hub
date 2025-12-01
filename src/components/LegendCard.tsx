@@ -1,5 +1,5 @@
-import React from 'react';
-import { Legend } from '../types/legend';
+import { Legend } from '../types';
+import {ImageWithFallback} from "./ImageWithFallback.tsx";
 
 interface LegendCardProps {
     legend: Legend;
@@ -37,7 +37,18 @@ export const LegendCard: React.FC<LegendCardProps> = ({ legend, onCardClick }) =
             }`}
         >
             <div className="text-center">
-                <div className="text-6xl mb-4">{legend.image}</div>
+                <div className="w-[222px] h-[285px] mx-auto mb-4">
+                    <ImageWithFallback
+                        src={legend.image}
+                        alt={legend.name}
+                        fallback={
+                            <div className="w-full h-full bg-gray-100 rounded-lg flex items-center justify-center">
+                                <div className="text-4xl">⚾</div>
+                            </div>
+                        }
+                        className="w-full h-full object-cover rounded-lg"
+                    />
+                </div>
 
                 <h3 className="text-xl font-bold text-gray-800 mb-2">{legend.name}</h3>
                 <p className="text-sm text-gray-600 mb-3">{legend.position}</p>

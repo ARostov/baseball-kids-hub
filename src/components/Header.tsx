@@ -1,71 +1,68 @@
-import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-export const Header: React.FC = () => {
+export function Header() {
     const navigate = useNavigate();
-    const location = useLocation();
-
-    // Не показывать хедер на главной странице
-    if (location.pathname === '/') {
-        return null;
-    }
 
     return (
-        <header className="bg-white shadow-sm border-b border-gray-200">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between items-center h-16">
+        <header className="mlb-header sticky top-0 z-50">
+            <div className="container mx-auto px-4">
+                <div className="flex items-center justify-between py-4">
                     {/* Логотип и название */}
                     <button
                         onClick={() => navigate('/')}
-                        className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+                        className="flex items-center space-x-4 hover:opacity-90 transition-opacity"
                     >
-                        <div className="text-2xl">⚾</div>
-                        <div>
-                            <h1 className="text-xl font-bold text-gray-800">Baseball Kids Hub</h1>
-                            <p className="text-xs text-gray-500">Твой путь к величию</p>
+                        <div className="bg-white rounded-full p-2">
+                            <span className="text-mlb-blue text-2xl font-bold">⚾</span>
+                        </div>
+                        <div className="text-left">
+                            <h1 className="text-xl font-bold text-white leading-tight">
+                                Baseball Kids
+                            </h1>
+                            <p className="text-mlb-light-gray text-sm">HUB</p>
                         </div>
                     </button>
 
                     {/* Навигация */}
-                    <nav className="hidden md:flex items-center gap-6">
+                    <nav className="hidden md:flex items-center space-x-6">
                         <button
                             onClick={() => navigate('/trainings')}
-                            className="text-gray-600 hover:text-blue-600 transition-colors"
+                            className="text-white hover:text-mlb-light-gray transition-colors font-medium text-sm uppercase tracking-wide"
                         >
                             Тренировки
                         </button>
                         <button
-                            onClick={() => navigate('/schedule')}
-                            className="text-gray-600 hover:text-blue-600 transition-colors"
-                        >
-                            Расписание
-                        </button>
-                        <button
                             onClick={() => navigate('/legends')}
-                            className="text-gray-600 hover:text-blue-600 transition-colors"
+                            className="text-white hover:text-mlb-light-gray transition-colors font-medium text-sm uppercase tracking-wide"
                         >
                             Легенды
                         </button>
                         <button
-                            onClick={() => navigate('/quiz')}
-                            className="text-gray-600 hover:text-blue-600 transition-colors"
+                            onClick={() => navigate('/levels')}
+                            className="text-white hover:text-mlb-light-gray transition-colors font-medium text-sm uppercase tracking-wide"
                         >
-                            Викторина
+                            Уровни
+                        </button>
+                        <button
+                            onClick={() => navigate('/achievements')}
+                            className="text-white hover:text-mlb-light-gray transition-colors font-medium text-sm uppercase tracking-wide"
+                        >
+                            Достижения
+                        </button>
+                        <button
+                            onClick={() => navigate('/profile')}
+                            className="mlb-button-primary text-sm py-2 px-4"
+                        >
+                            Мой профиль
                         </button>
                     </nav>
 
-                    {/* Профиль */}
-                    <button
-                        onClick={() => navigate('/profile')}
-                        className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors"
-                    >
-                        <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                            <span className="text-sm">👤</span>
-                        </div>
-                        <span className="hidden sm:block">Профиль</span>
+                    {/* Мобильное меню (упрощённо) */}
+                    <button className="md:hidden text-white">
+                        <span className="text-2xl">☰</span>
                     </button>
                 </div>
             </div>
         </header>
     );
-};
+}

@@ -23,7 +23,7 @@ export const LegendDetail: React.FC = () => {
                 <div className="bg-white rounded-2xl shadow-lg p-8">
                     <div className="flex flex-col md:flex-row gap-8">
                         <div className="flex-shrink-0">
-                            <div className="text-8xl mb-4">{legend.image}</div>
+                            <div className="text-8xl mb-4">⚾</div>
                             <div className={`px-4 py-2 rounded-full text-center font-medium ${
                                 legend.owned ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
                             }`}>
@@ -70,7 +70,7 @@ export const LegendDetail: React.FC = () => {
                             <div className="mb-6">
                                 <h3 className="font-semibold text-gray-800 mb-2">Достижения</h3>
                                 <ul className="list-disc list-inside text-gray-600 text-sm">
-                                    {legend.trophies.slice(0, 3).map((trophy, index) => (
+                                    {legend.trophies.map((trophy, index) => (
                                         <li key={index}>{trophy}</li>
                                     ))}
                                 </ul>

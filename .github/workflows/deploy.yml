@@ -2,23 +2,23 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main ]  # продакшн деплой только из main
   pull_request:
-    branches: [ main ]
+    branches: [ "**" ]  # превью для всех PR
 
 permissions:
   contents: read
   pages: write
   id-token: write
+  pull-requests: write
 
 concurrency:
-  group: "pages"
+  group: "pages-${{ github.ref }}"
   cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -35,13 +35,37 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Create branch-specific build
+        run: |
+          # Получаем имя ветки
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+          BRANCH_NAME="${{ github.head_ref }}"
+          else
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          fi
+          
+          # Заменяем спецсимволы в имени ветки
+          CLEAN_BRANCH_NAME=$(echo "$BRANCH_NAME" | sed 's/[\/#]/-/g')
+          echo "Branch: $BRANCH_NAME"
+          echo "Clean branch: $CLEAN_BRANCH_NAME"
+          
+          # Создаем папку для билда ветки (рекурсивно)
+          mkdir -p "./dist-branches/$CLEAN_BRANCH_NAME"
+          
+          # Копируем содержимое dist в папку ветки
+          cp -r ./dist/* "./dist-branches/$CLEAN_BRANCH_NAME/" || echo "Copy completed"
+          
+          # Проверяем что скопировалось
+          echo "Contents of dist-branches:"
+          ls -la "./dist-branches/$CLEAN_BRANCH_NAME/"
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: ./dist-branches
 
   deploy:
     environment:
@@ -50,9 +74,34 @@ jobs:
 
     runs-on: ubuntu-latest
     needs: build
-    if: github.ref == 'refs/heads/main'
-
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Get clean branch name
+        id: branch
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BRANCH_NAME="${{ github.head_ref }}"
+          else
+            BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          fi
+          CLEAN_BRANCH_NAME=$(echo "$BRANCH_NAME" | sed 's/[\/#]/-/g')
+          echo "branch_name=$CLEAN_BRANCH_NAME" >> $GITHUB_OUTPUT
+
+      - name: Add PR Comment with Preview URL
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const baseUrl = 'https://arostov.github.io/baseball-kids-hub';
+            const branchName = '${{ steps.branch.outputs.branch_name }}';
+            const previewUrl = `${baseUrl}/${branchName}/`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `🎉 Preview deployed! \n\n**View your PR preview here:** ${previewUrl}`
+            })

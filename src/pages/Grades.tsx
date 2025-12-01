@@ -1,8 +1,29 @@
-import { useState } from 'react';
-import { gradesData } from '../data/gradesData';
+import { useState, useEffect } from 'react';
+import { GistService, GradesData } from '../services/gistService';
 
 export const GradesPage: React.FC = () => {
     const [selectedQuarter, setSelectedQuarter] = useState<number>(2);
+    const [gradesData, setGradesData] = useState<GradesData | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        loadGradesData();
+    }, []);
+
+    const loadGradesData = async () => {
+        try {
+            setLoading(true);
+            const data = await GistService.loadGrades();
+            setGradesData(data);
+            setError(null);
+        } catch (err) {
+            setError('Не удалось загрузить оценки. Пожалуйста, проверьте подключение к интернету.');
+            console.error('Error loading grades:', err);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const calculateAverage = (grades: number[]) => {
         if (grades.length === 0) return 0;
@@ -10,16 +31,17 @@ export const GradesPage: React.FC = () => {
     };
 
     const getQuarterGrades = (quarter: number) => {
-        const quarterKey = `quarter${quarter}` as keyof typeof gradesData.subjects[0];
-        return gradesData.subjects.map(subject => ({
-            ...subject,
-            grades: subject[quarterKey] as number[],
-            average: calculateAverage(subject[quarterKey] as number[])
-        }));
-    };
+        if (!gradesData) return [];
 
-    const currentQuarterGrades = getQuarterGrades(selectedQuarter);
-    const overallAverage = calculateAverage(currentQuarterGrades.map(subject => subject.average));
+        return gradesData.subjects.map(subject => {
+            const quarterGrades = subject[`quarter${quarter}` as keyof typeof subject] as number[];
+            return {
+                ...subject,
+                grades: quarterGrades,
+                average: calculateAverage(quarterGrades)
+            };
+        });
+    };
 
     const getGradeColor = (grade: number) => {
         if (grade >= 4.5) return 'text-green-600 bg-green-100';
@@ -28,17 +50,70 @@ export const GradesPage: React.FC = () => {
         return 'text-red-600 bg-red-100';
     };
 
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-gray-50 p-6 flex items-center justify-center">
+                <div className="text-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
+                    <p className="mt-4 text-gray-600">Загружаем оценки...</p>
+                </div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="min-h-screen bg-gray-50 p-6 flex items-center justify-center">
+                <div className="text-center">
+                    <div className="text-red-500 text-4xl mb-4">⚠️</div>
+                    <h2 className="text-xl font-bold text-gray-800 mb-2">Ошибка загрузки</h2>
+                    <p className="text-gray-600 mb-4">{error}</p>
+                    <button
+                        onClick={loadGradesData}
+                        className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600"
+                    >
+                        Попробовать снова
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
+    if (!gradesData) {
+        return (
+            <div className="min-h-screen bg-gray-50 p-6 flex items-center justify-center">
+                <div className="text-center">
+                    <p className="text-gray-600">Данные об оценках не найдены</p>
+                </div>
+            </div>
+        );
+    }
+
+    const currentQuarterGrades = getQuarterGrades(selectedQuarter);
+    const overallAverage = calculateAverage(currentQuarterGrades.map(subject => subject.average));
+
     return (
         <div className="min-h-screen bg-gray-50 p-6">
             <div className="max-w-6xl mx-auto">
                 <header className="mb-8">
-                    <h1 className="text-3xl font-bold text-gray-800">📚 Успеваемость в школе</h1>
-                    <p className="text-gray-600 mt-2">
-                        {gradesData.student.name} • {gradesData.student.class} класс
-                    </p>
+                    <div className="flex justify-between items-center">
+                        <div>
+                            <h1 className="text-3xl font-bold text-gray-800">📚 Успеваемость в школе</h1>
+                            <p className="text-gray-600 mt-2">
+                                {gradesData.student.name} • {gradesData.student.class} класс
+                            </p>
+                        </div>
+                        <button
+                            onClick={loadGradesData}
+                            className="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 flex items-center gap-2"
+                        >
+                            <span>🔄</span>
+                            Обновить
+                        </button>
+                    </div>
                 </header>
 
-                {/* Выбор четверти */}
+                {/* Остальной код компонента остается таким же */}
                 <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
                     <h2 className="text-xl font-bold text-gray-800 mb-4">Выберите четверть</h2>
                     <div className="flex gap-4">
@@ -146,8 +221,8 @@ export const GradesPage: React.FC = () => {
                                         <div key={subject.name} className="flex items-center justify-between">
                                             <span className="text-gray-700">{subject.name}</span>
                                             <span className={`font-semibold ${getGradeColor(subject.average)}`}>
-                        {subject.average.toFixed(2)}
-                      </span>
+                                                {subject.average.toFixed(2)}
+                                            </span>
                                         </div>
                                     ))}
                             </div>
